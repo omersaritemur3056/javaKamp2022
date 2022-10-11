@@ -10,18 +10,21 @@ public class Course implements Entity {
 	private String description;
 	
 	private Category category;
+	private Instructor instructor;
 
 	public Course() {
 		
 	}
 
-	public Course(int id, String courseName, double price, String description, Category category) {
+	public Course(int id, String courseName, double price, String description, Category category,
+			Instructor instructor) {
 		super();
 		this.id = id;
 		this.courseName = courseName;
 		this.price = price;
 		this.description = description;
 		this.category = category;
+		this.instructor = instructor;
 	}
 
 	public int getId() {
@@ -63,5 +66,15 @@ public class Course implements Entity {
 	public void setCategory(Category category) {
 		this.category = category;
 	}
+
+	public Instructor getInstructor() {
+		return instructor;
+	}
+
+	public void setInstructor(Instructor instructor) {
+		this.instructor = instructor;
+	}
+
+	
 	
 }
