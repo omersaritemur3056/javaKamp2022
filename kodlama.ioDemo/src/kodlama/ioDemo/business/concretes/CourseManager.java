@@ -14,9 +14,12 @@ public class CourseManager implements CourseService {
 	private List<Logger> loggers; //dependency injection yap ve ekle
 	
 	
-	public CourseManager(CourseDao courseDao) {
-		
+
+
+	public CourseManager(CourseDao courseDao, List<Logger> loggers) {
+		super();
 		this.courseDao = courseDao;
+		this.loggers = loggers;
 	}
 
 
@@ -26,27 +29,31 @@ public class CourseManager implements CourseService {
 		
 		
 	if (course.getPrice() < 0) {
-		System.out.println("Kursun fiyatı 0'dan küçük olamaz.");
-		return;
-	}
-	List<Course> courses = courseDao.getAll();
-	for(Course inDbCourse : courses) {
-		if (inDbCourse.getId() == course.getId() || inDbCourse.getCourseName() == course.getCourseName()) {
-			System.out.println("Kurs mevcut");
-			return;
-		}
+		
+		throw new Exception("Kursun fiyatı 0'dan küçük olamaz.");
 	}
 	
-				
+	for(Course inDbCourse : courseDao.getAll()) {
+		if (inDbCourse == course) {
+			System.out.println(course + " ismi tekrar edemez");
+			return;
+		}
+	}		
 		courseDao.save(course);
+		
+		for (Logger logger : loggers) {
+			logger.log();
+		}
 	}
 
 
 	@Override
-	public Course get(int id) {
+	public void getCourses() {
 		
-		return courseDao.findByCourseId(id);
-		
+		courseDao.getAll();
 	}
+
+
+	
 
 }
