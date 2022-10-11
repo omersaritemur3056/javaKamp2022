@@ -4,5 +4,5 @@ import kodlama.ioDemo.entites.concretes.Category;
 
 public interface CategoryService {
 
-	void add(Category category);
+	void add(Category category) throws Exception;
 }

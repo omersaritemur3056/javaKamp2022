@@ -34,9 +34,9 @@ public class CourseManager implements CourseService {
 	}
 	
 	for(Course inDbCourse : courseDao.getAll()) {
-		if (inDbCourse == course) {
-			System.out.println(course + " ismi tekrar edemez");
-			return;
+		if (inDbCourse.getCourseName() == course.getCourseName()) {
+			
+			throw new Exception("Kurs ismi tekrar edemez");
 		}
 	}		
 		courseDao.save(course);
